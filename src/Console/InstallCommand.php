@@ -29,6 +29,6 @@ class InstallCommand extends Command
     public function handle()
     {
         $this->call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider']);
-        $this->call('vendor:publish', ['--provider' => 'Chaos\Majordomo\MajordomoServiceProvider']);
+        $this->call('vendor:publish', ['--provider' => 'Chaos\Majordomo\Providers\MajordomoServiceProvider']);
     }
 }
