@@ -1,5 +1,5 @@
 {
-  "name": "chaos/majordomo",
+  "name": "imfengzi/majordomo",
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
