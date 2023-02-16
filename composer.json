@@ -1,0 +1,30 @@
+{
+  "name": "chaos/majordomo",
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Chaos\\Majordomo\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "chaos"
+    }
+  ],
+  "require": {
+    "php": "^8.0.2",
+    "nesbot/carbon": "^2.63",
+    "laravel/sanctum": "^3.0",
+    "kalnoy/nestedset": "^6.0",
+    "laravel/framework": "^9.0",
+    "spatie/laravel-permission": "5.x-dev"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Laravel\\Sanctum\\SanctumServiceProvider",
+        "Chaos\\Majordomo\\Providers\\MajordomoServiceProvider"
+      ]
+    }
+  }
+}
