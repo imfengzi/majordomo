@@ -2,14 +2,10 @@
 
 namespace Chaos\Majordomo\Http\Controllers;
 
-use Chaos\Majordomo\Exceptions\PermissionException;
-use Chaos\Majordomo\Exceptions\RoleException;
 use Chaos\Majordomo\Exceptions\RouteException;
 use Chaos\Majordomo\Models\Permission;
 use Chaos\Majordomo\Models\Route;
 use Illuminate\Http\Request;
-use Spatie\Permission\Exceptions\RoleAlreadyExists;
-use Spatie\Permission\Models\Role;
 
 class RouteController extends Controller
 {
@@ -21,7 +17,7 @@ class RouteController extends Controller
         ]);
         $count = Route::where('path', $request->get('path'))->count();
         if ($count > 0) {
-            throw new RouteException('该路由已经存在');
+            throw new RouteException('该接口已经存在');
         }
         $route = Route::create($request->all());
         $permissions = $request->get('permissions');
@@ -36,7 +32,7 @@ class RouteController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'id' => 'required',
+            'id'   => 'required',
             'path' => 'required',
             'desc' => 'required',
         ]);
@@ -45,7 +41,7 @@ class RouteController extends Controller
         if ($route->path != $path) {
             $count = Route::where('path', $path)->where('id', '<>', $route->id)->count();
             if ($count > 0) {
-                throw new RouteException('该路由已经存在');
+                throw new RouteException('该接口已经存在');
             }
         }
         $route->fill($request->all())->save();

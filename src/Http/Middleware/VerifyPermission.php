@@ -16,6 +16,9 @@ class VerifyPermission
             return $next($request);
         }
         $path = $request->route()->uri;
+        $routePrefix = config('majordomo.route_prefix');
+        $path = substr($path, strlen($routePrefix));
+
         $cacheKey = 'route.permission.' . md5($path);
         $permissions = Cache::rememberForever($cacheKey, function () use ($path) {
             $route = Route::where('path', $path)->with('permissions')->first();

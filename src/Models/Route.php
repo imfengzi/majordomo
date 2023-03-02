@@ -2,8 +2,6 @@
 
 namespace Chaos\Majordomo\Models;
 
-
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,6 +17,7 @@ class Route extends Model
             $route->permissions()->detach();
         });
     }
+
 
     public function permissions()
     {

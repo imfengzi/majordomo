@@ -17,10 +17,13 @@ class AdminController extends Controller
         ]);
         $admin = Admin::where('username', $validated['username'])->first();
         $needRestrict = $this->needRestrict();
+        if (!$admin) {
+            throw new AdminException('账号或密码不正确');
+        }
         if ($needRestrict && $admin->isLocked()) {
             throw new AdminException('您已被锁定，请稍后再试');
         }
-        if (!$admin || !$admin->verifyPassword($validated['password'])) {
+        if (!$admin->verifyPassword($validated['password'])) {
             if ($needRestrict) {
                 $admin->lockOnce()->save();
             }
@@ -41,7 +44,7 @@ class AdminController extends Controller
     public function modifyPassword(Request $request)
     {
         $validated = $request->validate([
-            'password' => 'required',
+            'password'     => 'required',
             'old_password' => 'required',
         ]);
         $admin = $request->user();
@@ -59,7 +62,7 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'username' => 'required',
-            'role_id' => 'required|numeric'
+            'role_id'  => 'required|numeric'
         ]);
         if (Admin::where(['username' => $validated['username']])->count()) {
             throw new AdminException('该用户名已存在');
